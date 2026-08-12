@@ -192,6 +192,7 @@ export default function EasyMedMVP() {
       className="flex min-h-screen items-center justify-center p-6"
       style={{ backgroundColor: "#EFF1EC", fontFamily: "'IBM Plex Sans', sans-serif" }}
     >
+
       {/* phone frame */}
       <div
         className="relative flex h-[780px] w-[380px] flex-col overflow-hidden rounded-[2.25rem] border-8 shadow-2xl"
@@ -498,4 +499,86 @@ export default function EasyMedMVP() {
                   onChange={(e) => setChatDraft(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && sendChat()}
                   placeholder="Ask your pharmacist..."
-              
+                  className="flex-1 rounded-full border px-4 py-2.5 text-[12.5px] outline-none"
+                  style={{ borderColor: "#E7E4DA", color: "#16221F" }}
+                />
+                <button
+                  onClick={sendChat}
+                  className="flex h-9 w-9 items-center justify-center rounded-full"
+                  style={{ backgroundColor: "#0B4F4A" }}
+                >
+                  <Send size={14} color="#fff" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {tab === "refill" && (
+            <div className="flex flex-col gap-4">
+              <div>
+                <h2
+                  className="text-[16px] font-semibold"
+                  style={{ color: "#16221F", fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  Refill network
+                </h2>
+                <p className="mt-1 text-[12px]" style={{ color: "#5B6B66" }}>
+                  Verified pharmacies, delivered before you run out.
+                </p>
+              </div>
+              <div className="rounded-2xl p-4" style={{ backgroundColor: "#0B4F4A" }}>
+                <p className="text-[11px] text-white/70">Next delivery in</p>
+                <p
+                  className="mt-1 text-[30px] font-semibold leading-none text-white"
+                  style={{ fontFamily: "'IBM Plex Mono', monospace" }}
+                >
+                  {refillDays} days
+                </p>
+                <button
+                  onClick={requestRefill}
+                  className="mt-3 w-full rounded-lg py-2.5 text-[12.5px] font-semibold"
+                  style={{ backgroundColor: "#E8A33D", color: "#16221F" }}
+                >
+                  Request refill now
+                </button>
+              </div>
+              <div className="flex flex-col gap-2">
+                {["MedPlus Pharmacy — Ikeja", "HealthPlus — Yaba", "PPMV Verified Partner — Surulere"].map((p) => (
+                  <div
+                    key={p}
+                    className="flex items-center justify-between rounded-xl border px-3.5 py-3"
+                    style={{ borderColor: "#E7E4DA" }}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ backgroundColor: "#F1EEE6" }}>
+                        <Truck size={14} color="#0B4F4A" />
+                      </div>
+                      <p className="text-[12.5px]" style={{ color: "#16221F" }}>
+                        {p}
+                      </p>
+                    </div>
+                    <span
+                      className="rounded-full px-2 py-0.5 text-[10px] font-medium"
+                      style={{ backgroundColor: "rgba(63,143,95,0.12)", color: "#3F8F5F" }}
+                    >
+                      Verified
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* bottom nav */}
+        <div className="flex border-t" style={{ borderColor: "#EDEAE0", backgroundColor: "#FBFBF9" }}>
+          <TabBtn active={tab === "dashboard"} onClick={() => setTab("dashboard")} icon={Activity} label="Home" />
+          <TabBtn active={tab === "track"} onClick={() => setTab("track")} icon={Pill} label="Track" />
+          <TabBtn active={tab === "carelink"} onClick={() => setTab("carelink")} icon={AlertTriangle} label="CareLink" />
+          <TabBtn active={tab === "pharmacy"} onClick={() => setTab("pharmacy")} icon={MessageCircle} label="Pharmacist" />
+          <TabBtn active={tab === "refill"} onClick={() => setTab("refill")} icon={Truck} label="Refill" />
+        </div>
+      </div>
+    </div>
+  );
+}
